@@ -10,6 +10,20 @@ is looking at the lesion rather than the background.
 
 ---
 
+## Screenshots
+
+<p align="center">
+  <img src="Screenshots/dashboard.png" alt="AgriVision Pro main window" width="85%">
+</p>
+<p align="center"><em>Main window. The cursor-tracked spotlight drifts on its own when the mouse is idle.</em></p>
+
+<p align="center">
+  <img src="Screenshots/prediction.png" alt="Diagnosis result with runner-up classes" width="85%">
+</p>
+<p align="center"><em>Diagnosis result. Runner-up classes are shown alongside the top prediction, and a low-confidence warning appears when the margin between the top two is narrow.</em></p>
+
+---
+
 ## What happened in v2
 
 v1 was a Random Forest over ten hand-crafted features, reporting 79% accuracy.
@@ -82,7 +96,7 @@ classes and will happily pick a model that has given up on the rare ones.
 
 ```bash
 pip install -r requirements.txt
-export PYTHONPATH=$PWD/src        # Windows: set PYTHONPATH=%CD%\src
+export PYTHONPATH=$PWD/src        # Windows: $env:PYTHONPATH = "$PWD\src"
 ```
 
 Download [PlantVillage](https://www.kaggle.com/datasets/abdallahalidev/plantvillage-dataset)
@@ -108,6 +122,9 @@ python baseline/train_baseline.py --data-root "dataset/plantvillage dataset/colo
 # Desktop app
 python app_ui.py
 ```
+
+The app runs without a trained model — it reports that the checkpoint is missing
+and tells you how to produce one, rather than failing when you click Run.
 
 ---
 
@@ -166,9 +183,10 @@ Fixes beyond the feature pipeline:
   re-extract 54k images serially.
 - **GUI:** `state("zoomed")` was Windows-only and raised `TclError` elsewhere;
   inference ran on the UI thread behind a blocking sleep; a missing model file
-  failed silently until the user clicked Run; the placeholder advertised
-  drag-and-drop that was never implemented. All fixed, and the app now shows
-  runner-up classes and an explicit low-confidence warning.
+  failed silently until the user clicked Run; disabled buttons kept their accent
+  fill and still looked clickable; the placeholder advertised drag-and-drop that
+  was never implemented. All fixed, and the app now shows runner-up classes and
+  an explicit low-confidence warning.
 
 ---
 
