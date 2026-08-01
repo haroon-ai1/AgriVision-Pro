@@ -1,4 +1,13 @@
 dataset/
-__pycache__/
+artifacts/
+*.pt
 *.pkl
+*.joblib
+*.npz
+__pycache__/
+*.py[cod]
+.venv/
+venv/
 .env
+.idea/
+.vscode/
